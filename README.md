@@ -1,2 +1,2 @@
 # DSA
-In this repo we post solutions of neetcode 250 dsa sheet 
+In this repository, I post solutions to the NeetCode 250 DSA sheet
