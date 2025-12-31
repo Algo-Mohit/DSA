@@ -1,0 +1,66 @@
+class Solution {
+public:
+
+    string stringrepeat(int number, string word)
+    {
+        string new_word = "";
+        while (number--)
+            new_word += word;
+        return new_word;
+    }
+
+    string decodeString(string s) {
+        int size = s.length();
+        stack<int> number;
+        stack<string> latter;
+
+        int num = 0;   // multi-digit number ke liye
+
+        for (int i = 0; i < size; i++)
+        {
+            if (s[i] >= '0' && s[i] <= '9')
+            {
+                num = num * 10 + (s[i] - '0');
+            }
+            else if (s[i] == '[')
+            {
+                number.push(num);
+                latter.push("[");
+                num = 0;
+            }
+            else if (s[i] == ']')
+            {
+                string n = "";
+
+                while (!latter.empty() && latter.top() != "[")
+                {
+                    n = latter.top() + n;   // order fix
+                    latter.pop();
+                }
+
+                latter.pop(); // "[" hatao
+
+                int num1 = number.top();
+                number.pop();
+
+                string new_word = stringrepeat(num1, n);
+                latter.push(new_word);
+            }
+            else
+            {
+                string temp = "";
+                temp += s[i];
+                latter.push(temp);
+            }
+        }
+
+        string latest = "";
+        while (!latter.empty())
+        {
+            latest = latter.top() + latest;
+            latter.pop();
+        }
+
+        return latest;
+    }
+};
