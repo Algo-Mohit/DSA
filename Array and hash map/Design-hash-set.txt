@@ -1,0 +1,46 @@
+class MyHashSet {
+public:
+    int size = 1000;
+    vector<vector<int>> bucket;
+
+    MyHashSet() {
+        bucket.resize(size);
+    }
+
+   
+    void add(int key) {
+        int index = key % size;
+
+        for(int i = 0; i < bucket[index].size(); i++) {
+            if(bucket[index][i] == key)
+                return;   
+        }
+
+        bucket[index].push_back(key);
+    }
+
+    
+    void remove(int key) {
+        int index = key % size;
+
+        for(int i = 0; i < bucket[index].size(); i++) {
+            if(bucket[index][i] == key) {
+                bucket[index][i] = bucket[index].back();
+                bucket[index].pop_back();
+                return;
+            }
+        }
+    }
+
+    
+    bool contains(int key) {
+        int index = key % size;
+
+        for(int i = 0; i < bucket[index].size(); i++) {
+            if(bucket[index][i] == key)
+                return true;
+        }
+
+        return false;
+    }
+};
