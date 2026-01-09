@@ -1,0 +1,36 @@
+class Solution {
+public:
+    bool is_palindrome(string p)
+    {
+        int first = 0;
+        int last = p.length() - 1;
+        while(first < last)
+        {
+            if(p[first] != p[last])
+                return false;
+            first++;
+            last--;
+        }
+        return true;
+    }
+
+    bool validPalindrome(string s) {
+        int first = 0;
+        int last = s.length() - 1;
+
+        while(first < last)
+        {
+            if(s[first] == s[last])
+            {
+                first++;
+                last--;
+            }
+            else
+            {
+                return is_palindrome(s.substr(first+1, last-first)) ||
+                       is_palindrome(s.substr(first, last-first));
+            }
+        }
+        return true;
+    }
+};
