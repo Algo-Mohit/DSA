@@ -1,0 +1,19 @@
+class Solution {
+public:
+    int numRescueBoats(vector<int>& people, int limit) {
+        sort(people.begin(), people.end());
+
+        int first = 0;
+        int last = people.size() - 1;
+        int count = 0;
+
+        while(first <= last) {
+            if(people[first] + people[last] <= limit) {
+                first++;   
+            }
+            last--;        
+            count++;
+        }
+        return count;
+    }
+};
