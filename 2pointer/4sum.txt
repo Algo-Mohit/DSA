@@ -1,0 +1,55 @@
+class Solution {
+public:
+    vector<vector<int>> fourSum(vector<int>& nums, int target) {
+        sort(nums.begin(),nums.end());
+        vector<vector<int>>answer;
+        for(int i  = 0;i<nums.size();i++)
+        {
+            for(int j = i+1;j<nums.size();j++)
+            {
+                
+                int left = j+1;
+                int right = nums.size()-1;
+                
+                while(left<right)
+                {
+                    long long sum = (long long)nums[i] + nums[j] + nums[left] + nums[right];
+                    if(sum < target)
+                    {
+                        left++;
+                    }
+                    else if (sum > target)
+                    {
+                        right--;
+                    }
+                    else
+                    {
+                       vector<int>temp;
+                       temp.push_back(nums[i]);
+                       temp.push_back(nums[j]);
+                       temp.push_back(nums[left]);
+                       temp.push_back(nums[right]);
+                       
+                        bool found = false;
+
+                    for (int k = 0; k < answer.size(); k++) 
+                    {
+                    if (answer[k] == temp) 
+                    {
+                        found = true;
+                        break;
+                    }
+                    }
+
+                    if (!found) {
+                     answer.push_back(temp);
+                    }
+                       left++;
+                       right--;
+                    }
+                }
+            }
+        }
+        return answer;
+    }
+};
