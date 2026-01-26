@@ -1,0 +1,34 @@
+class FreqStack {
+public:
+    unordered_map<int, int> freq;
+    priority_queue<vector<int>> pq; 
+    int timer;
+
+    FreqStack() 
+    {
+        timer = 0;
+    }
+
+    void push(int val) 
+    {
+        freq[val]++;
+        timer++;
+        pq.push({freq[val], timer, val});
+    }
+
+    int pop() 
+    {
+        while (true) 
+        {
+            auto top = pq.top();
+            pq.pop();
+            int f = top[0];
+            int val = top[2];
+            if (freq[val] == f) 
+            {
+                freq[val]--;
+                return val;
+            }
+        }
+    }
+};
