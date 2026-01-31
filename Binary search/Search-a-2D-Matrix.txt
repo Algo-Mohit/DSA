@@ -1,0 +1,33 @@
+class Solution {
+public:
+    bool searchMatrix(vector<vector<int>>& matrix, int target) {
+        if (matrix.empty()) 
+        return false;
+
+        vector<int>temp;
+        int rows = matrix.size();
+        int cols = matrix[0].size();
+
+        for(int i = 0;i<rows;i++)
+        {
+            for(int j = 0;j<cols;j++)
+            {
+                temp.push_back(matrix[i][j]);
+            }
+        }
+
+        int i=0;
+        int j = temp.size()-1;
+        while(i<=j)
+        {
+           int mid = i + (j-i)/2;
+           if(temp[mid]==target)
+           return true;
+           else if(target<temp[mid])
+           j = mid-1;
+           else
+           i = mid+1;
+        }
+        return false;
+    }
+};
