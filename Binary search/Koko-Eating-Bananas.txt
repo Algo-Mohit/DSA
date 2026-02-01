@@ -1,0 +1,78 @@
+
+//using binary search 
+
+
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+        int maxPile = 0;
+        for (int x : piles)
+        {
+            if (x > maxPile)
+                maxPile = x;
+        }
+        int min_speed = maxPile ,mid;
+        int left = 1;
+        int right = maxPile;
+        while(left<=right)
+        {  
+            mid = left + (right-left)/2;
+            long long sum = 0;
+
+            for (int j = 0; j < piles.size(); j++) 
+            {
+                sum += piles[j] / mid;
+                if (piles[j] % mid != 0)
+                    sum += 1;
+            }
+
+            if (sum > h) 
+            {
+                 left = mid+1;
+            }
+            else
+            {
+              min_speed  = mid;
+              right = mid -1;
+            }
+        }
+        return min_speed;
+    }
+};
+
+
+
+//brute fourse approch
+
+
+class Solution {
+public:
+    int minEatingSpeed(vector<int>& piles, int h) {
+
+        int maxPile = 0;
+        for (int x : piles)
+        {
+            if (x > maxPile)
+                maxPile = x;
+        }
+
+        for (int i = 1; i <= maxPile; i++) 
+        {  
+            long long sum = 0;
+
+            for (int j = 0; j < piles.size(); j++) 
+            {
+                sum += piles[j] / i;
+                if (piles[j] % i != 0)
+                    sum += 1;
+            }
+
+            if (sum <= h) 
+            {
+                return i;   
+            }
+        }
+        return maxPile;
+    }
+};
