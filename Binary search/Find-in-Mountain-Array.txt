@@ -1,0 +1,138 @@
+// basic approch 
+
+class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+       int left = 1,right = mountainArr.length()-2;
+       int top = -1;
+       // to finding top of the mountain 
+       while(left<=right)
+       {
+        int mid = left + (right-left)/2;
+        if(mountainArr.get(mid)>mountainArr.get(mid-1)&&mountainArr.get(mid)>mountainArr.get(mid+1))
+        {
+           top = mid;
+           break;
+        }
+        if(mountainArr.get(mid)>mountainArr.get(mid+1))
+        {
+            right = mid - 1;
+        }
+        else
+        {
+            left = mid + 1;
+        }
+       }
+       if (mountainArr.get(top) == target)
+       return top;
+
+    int l = 0 ,r = top-1;
+    while(l<=r)
+    {
+        int mid = l + (r-l)/2;
+        if(mountainArr.get(mid)==target)
+        return mid;
+        else if(target<mountainArr.get(mid))
+        {
+            r = mid -1;
+        }
+        else
+        {
+            l = mid + 1;
+        }
+    }
+    int l1 = top+1,r1 = mountainArr.length()-1;
+    while(l1<=r1)
+    {
+        int mid = l1 + (r1-l1)/2;
+        if(target == mountainArr.get(mid))
+        {
+            return mid;
+        }
+        else if (target < mountainArr.get(mid))
+        {
+            l1 = mid + 1;
+        }
+        else
+        {
+            r1  = mid -1;
+        }
+    }
+    return -1;
+    }
+};
+
+
+
+
+
+///optimize approch 
+
+
+class Solution {
+public:
+    int findInMountainArray(int target, MountainArray &mountainArr) {
+
+        int n = mountainArr.length();
+        int left = 1, right = n - 2;
+        int top = -1;
+
+        while (left <= right) 
+        {
+            int mid = left + (right - left) / 2;
+
+            int a = mountainArr.get(mid);
+            int b = mountainArr.get(mid - 1);
+            int c = mountainArr.get(mid + 1);
+
+            if (a > b && a > c) 
+            {
+                top = mid;
+                break;
+            }
+
+            if (a > c) 
+            {
+                right = mid - 1;
+            } 
+            else 
+            {
+                left = mid + 1;
+            }
+        }
+        if (top == -1) 
+        return -1;
+
+        if (mountainArr.get(top) == target)
+            return top;
+
+        int l = 0, r = top - 1;
+        while (l <= r) 
+        {
+            int mid = l + (r - l) / 2;
+            int val = mountainArr.get(mid);
+            if (val == target)
+                return mid;
+            else if (target < val)
+                r = mid - 1;
+            else
+                l = mid + 1;
+        }
+
+        int l1 = top + 1, r1 = n - 1;
+        while (l1 <= r1) 
+        {
+            int mid = l1 + (r1 - l1) / 2;
+            int val = mountainArr.get(mid);
+
+            if (val == target)
+                return mid;
+            else if (target < val)
+                l1 = mid + 1;   
+            else
+                r1 = mid - 1;
+        }
+
+        return -1;
+    }
+};
