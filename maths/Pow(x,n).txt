@@ -1,0 +1,47 @@
+// simple approch 
+class Solution {
+public:
+    double myPow(double x, int n) {
+        if(n == 0)
+        return 1.00000;
+        double answer = 1;
+        int power = abs(n);
+        while(power)
+        {
+            answer *= x;
+            power--;
+        }
+        if(n<0)
+        {
+            answer = 1/answer;
+            return answer;
+        }
+       return answer;
+    }
+};
+
+
+
+//optimized approch 
+class Solution {
+public:
+    double myPow(double x, int n) {
+        long long power = n;   // overflow se bachne ke liye
+        if (power < 0) {
+            x = 1 / x;
+            power = -power;
+        }
+
+        double answer = 1.0;
+
+        while (power > 0) {
+            if (power % 2 == 1) {
+                answer *= x;
+            }
+            x *= x;
+            power /= 2;
+        }
+
+        return answer;
+    }
+};
