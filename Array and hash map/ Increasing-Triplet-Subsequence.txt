@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool increasingTriplet(vector<int>& nums) {
+        int n = nums.size();
+        int small[n];
+        int big[n];
+        int s = nums[0];
+
+        for(int i =0;i<n;i++)
+        {
+            small[i]=min(nums[i],s);
+            s = min(nums[i],s);
+        }
+        int b = nums[n-1];
+        for(int i =n-1;i>=0;i--)
+        {
+            big[i]=max(nums[i],b);
+            b = max(nums[i],b);
+        }
+        for(int i = 0;i<n;i++)
+        {
+            if(nums[i]>small[i]&&nums[i]<big[i])
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+};
