@@ -1,0 +1,29 @@
+class Solution {
+public:
+    bool isHappy(int n) {
+
+        unordered_set<int> u;
+
+        while(true)
+        {
+            int temp = 0;
+
+            while(n)
+            {
+                int dig = n % 10;
+                n = n / 10;
+                temp += dig * dig;
+            }
+
+            if(temp == 1)
+                return true;
+
+            if(u.find(temp) != u.end())
+                return false;
+
+            u.insert(temp);
+
+            n = temp;
+        }
+    }
+};
