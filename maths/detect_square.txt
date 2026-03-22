@@ -1,0 +1,39 @@
+class DetectSquares {
+public:
+    unordered_map<int, unordered_map<int, int>> mp;
+
+    DetectSquares() {}
+    
+    void add(vector<int> point) {
+        int x = point[0];
+        int y = point[1];
+        mp[x][y]++;  
+    }
+    
+    int count(vector<int> point) {
+        int x = point[0];
+        int y = point[1];
+        int ans = 0;
+
+        if (!mp.count(x)) return 0;
+
+        for (auto it : mp[x]) {
+            int y2 = it.first;
+            int freq = it.second;
+
+            if (y2 == y) continue;
+
+            int d = abs(y - y2);
+
+            if (mp.count(x + d)) {
+                ans += freq * mp[x + d][y] * mp[x + d][y2];
+            }
+
+            if (mp.count(x - d)) {
+                ans += freq * mp[x - d][y] * mp[x - d][y2];
+            }
+        }
+
+        return ans;
+    }
+};
